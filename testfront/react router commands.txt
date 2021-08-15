@@ -1,0 +1,5 @@
+npx create-react-app appname   // to make new react app     
+
+npm install react-router-dom	// to install this package
+
+It helps routing at a central control point
