@@ -19,16 +19,17 @@ const Cart = () => {
     return (
       <div>
         <h2>This section is to load products</h2>
-        {products.map((product, index) => (
-          <Card
-            key={index}
-            product={product}
-            removeFromCart={true}
-            addtoCart={false}
-            setReload={setReload}
-            reload={reload}
-          />
-        ))}
+        {products &&
+          products.map((product, index) => (
+            <Card
+              key={index}
+              product={product}
+              removeFromCart={true}
+              addtoCart={false}
+              setReload={setReload}
+              reload={reload}
+            />
+          ))}
       </div>
     );
   };
@@ -50,9 +51,12 @@ const Cart = () => {
             <h4>No products</h4>
           )}
         </div>
+        {/* <div className="col-6">
+          <StripeCheckout products={products} setReload={setReload} />
+        </div> */}
+
+        {/* <div className="col-6">Payment Section</div> */}
         <div className="col-6">
-          {/* <StripeCheckout products={products} setReload={setReload} /> */}
-          {/* Payment Section */}
           <Paymentb products={products} setReload={setReload} />
         </div>
       </div>

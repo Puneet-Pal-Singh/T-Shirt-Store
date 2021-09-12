@@ -8,13 +8,19 @@ const gateway = new braintree.BraintreeGateway({
 });
 
 exports.getToken = (req, res) => {
-  gateway.clientToken.generate({}, function (err, response) {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.send(response);
-    }
-  });
+  try {
+    gateway.clientToken.generate({}, (err, response) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.send(response);
+      }
+      // pass clientToken to your front-end
+      // const clientToken = response.clientToken
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 exports.processPayment = (req, res) => {
@@ -30,7 +36,7 @@ exports.processPayment = (req, res) => {
         submitForSettlement: true,
       },
     },
-    function (err, result) {
+    (err, result) => {
       if (err) {
         res.status(500).json(error);
       } else {

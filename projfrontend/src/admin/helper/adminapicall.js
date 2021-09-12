@@ -1,6 +1,6 @@
 import { API } from "../../backend";
 
-//category calls
+//* category calls
 
 //create category
 export const createCategory = (userId, token, category) => {
@@ -19,6 +19,17 @@ export const createCategory = (userId, token, category) => {
     .catch((err) => console.log(err));
 };
 
+// get a category
+export const getCategory = (categoryId) => {
+  return fetch(`${API}/category/${categoryId}`, {
+    method: "GET",
+  })
+    .then((resp) => {
+      return resp.json();
+    })
+    .catch((err) => console.log(err));
+};
+
 //get all categories
 export const getCategories = () => {
   return fetch(`${API}/categories`, {
@@ -30,7 +41,41 @@ export const getCategories = () => {
     .catch((err) => console.log(err));
 };
 
-// product calls
+//Update a category
+export const updateCategory = (categoryId, userId, token, category) => {
+  return fetch(`${API}/category/${categoryId}/${userId}`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      AUthorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(category),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+// Delete a category
+export const deleteCategory = (categoryId, userId, token) => {
+  return fetch(`${API}/category/${categoryId}/${userId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
+
+//* product calls
 
 //create a product
 export const createaProduct = (userId, token, product) => {
@@ -59,7 +104,7 @@ export const getproducts = () => {
     .catch((err) => console.log(err));
 };
 
-//delete a product
+// delete a product
 export const deleteProduct = (productId, userId, token) => {
   return fetch(`${API}/product/${productId}/${userId}`, {
     method: "DELETE",
@@ -94,6 +139,51 @@ export const updateProduct = (productId, userId, token, product) => {
       Authorization: `Bearer ${token}`,
     },
     body: product,
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
+
+//* orders
+
+export const getOrders = (userId, token) => {
+  return fetch(`${API}/order/all/${userId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
+
+export const updateOrderStatus = (userId, token, orderId, orderData) => {
+  return fetch(`${API}/order/${orderId}/status/update/${userId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(orderData),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
+
+export const getOrderStatus = (userId, token, orderId) => {
+  return fetch(`${API}/order/${orderId}/status/${userId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
   })
     .then((response) => {
       return response.json();

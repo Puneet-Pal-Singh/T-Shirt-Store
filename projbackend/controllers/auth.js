@@ -84,6 +84,12 @@ exports.isSignedIn = expressJwt({
   secret: process.env.SECRET,
   userProperty: "auth",
 });
+// exports.isSignedIn = expressJwt({
+//   secret: process.env.SECRET,
+//   // userProperty: "auth",
+//   // requestProperty: "auth",
+//   algorithms: ["HS256"],
+// });
 // not writing next()
 // as express jwt already cover this for us
 
